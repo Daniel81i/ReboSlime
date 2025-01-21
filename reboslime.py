@@ -10,7 +10,8 @@ from rich.console import Console
 
 CONFIG = json.load(open('config.json'))
 VERSION = CONFIG['version']
-REBOCAP_COUNT = 8
+REBOCAP_COUNT = CONFIG['rebocap_count']
+CONSOLE_TIMEOUT = CONFIG['console_timeout']
 SLIME_IP = CONFIG['slime_ip']  # SlimeVR Server
 SLIME_PORT = CONFIG['slime_port']  # SlimeVR Server
 # SlimeVR packet frequency. Keep below 300 (above 300 has weird behavior)
@@ -166,7 +167,7 @@ console.print("关于节点数目的使用说明：\n\
 
 try:
     REBOCAP_COUNT = inputimeout(
-        "想要以几点动捕的形式运行呢？如无输入，将在 10 秒后以 8 点模式运行（请输入 6 / 8 / 10 / 12 / 15）: ", 10)
+        "想要以几点动捕的形式运行呢？如无输入，将在 10 秒后以 8 点模式运行（请输入 6 / 8 / 10 / 12 / 15）: ", CONSOLE_TIMEOUT)
 except TimeoutOccurred:
     REBOCAP_COUNT = 8
 
