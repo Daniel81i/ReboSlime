@@ -1,3 +1,5 @@
+import sys
+import platform
 import json
 import socket
 import time
@@ -10,7 +12,8 @@ from rich.console import Console
 
 CONFIG = json.load(open('config.json'))
 VERSION = CONFIG['version']
-REBOCAP_COUNT = 8
+REBOCAP_IMUS = CONFIG['rebocap_imus']
+CONSOLE_TIMEOUT = CONFIG['console_timeout']
 SLIME_IP = CONFIG['slime_ip']  # SlimeVR Server
 SLIME_PORT = CONFIG['slime_port']  # SlimeVR Server
 # SlimeVR packet frequency. Keep below 300 (above 300 has weird behavior)
@@ -21,6 +24,7 @@ PACKET_COUNTER = 0
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sdk = None
 global_quats = []
+PYTHON_VER = sys.version
 
 # 姿态数据回调
 
@@ -157,6 +161,7 @@ console.print(" ___       _          ___  _  _             \n\
 |   // -_)|  _ \/ _ \\\__ \| || || '  \ / -_)\n\
 |_|_\\\___||____/\___/|___/|_||_||_|_|_|\___|  v" + VERSION + "\n\
 ")
+console.print("Python " + PYTHON_VER + "\n")
 console.print("关于节点数目的使用说明：\n\
 · 6  点：胸部 + 髋部 + 大腿 + 小腿 \n\
 · 8  点：胸 + 腰 + 大腿 + 小腿 + 脚 \n\
@@ -166,9 +171,9 @@ console.print("关于节点数目的使用说明：\n\
 
 try:
     REBOCAP_COUNT = inputimeout(
-        "想要以几点动捕的形式运行呢？如无输入，将在 10 秒后以 8 点模式运行（请输入 6 / 8 / 10 / 12 / 15）: ", 10)
+        "想要以几点动捕的形式运行呢？如无输入，将在 " + str(CONSOLE_TIMEOUT) + " 秒后以 " + str(REBOCAP_IMUS) + " 点模式运行（请输入 6 / 8 / 10 / 12 / 15）: ", CONSOLE_TIMEOUT)
 except TimeoutOccurred:
-    REBOCAP_COUNT = 8
+    REBOCAP_COUNT = REBOCAP_IMUS
 
 # 连接 Rebocap
 init_rebocap_ws()
