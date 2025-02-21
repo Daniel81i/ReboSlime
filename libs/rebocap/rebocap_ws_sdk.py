@@ -4,11 +4,19 @@ import sys
 
 py_version = sys.version
 if py_version.startswith('3.7'):
-    from libs.rebocap.py37 import rebocap_ws_sdk_ext
+    from .py37 import rebocap_ws_sdk_ext
 elif py_version.startswith('3.8'):
-    from libs.rebocap.py38 import rebocap_ws_sdk_ext
+    from .py38 import rebocap_ws_sdk_ext
+elif py_version.startswith('3.9'):
+    from .py39 import rebocap_ws_sdk_ext
+elif py_version.startswith('3.11'):
+    from .py311 import rebocap_ws_sdk_ext
 elif py_version.startswith('3.10'):
-    from libs.rebocap.py310 import rebocap_ws_sdk_ext
+    from .py310 import rebocap_ws_sdk_ext
+elif py_version.startswith('3.6'):
+    from .py36 import rebocap_ws_sdk_ext
+elif py_version.startswith('3.12'):
+    from .py312 import rebocap_ws_sdk_ext
 else:
     raise 'not support python version!!!! current support is: python 3.7; python 3.8; python 3.10'
 
