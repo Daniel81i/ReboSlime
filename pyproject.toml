@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "reboslime"
-version = "0.1.0"
-description = ""
-authors = ["Colanns <mycolands@gmail.com>"]
+version = "0.1.1"
+description = "a customized version forked from Colanns <mycolands@gmail.com>"
+authors = ["Daniel81i"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.10.10"
+python = "3.12"
 rich = "^13.7.1"
 pyinstaller = "^6.5.0"
 
