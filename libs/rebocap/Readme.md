@@ -1,3 +1,4 @@
+# 以下はfork元のReadme.mdの日本語訳です
 # Python SDK
 
 # current support python version
@@ -11,6 +12,7 @@
 
 # example
 以下のコマンドを直接実行します。
+
 `python reborncap_ws_sdk_example.py`
 
 # 基本使用示例
