@@ -1,4 +1,3 @@
-# 以下はfork元のReadme.mdの日本語訳です
 # Python SDK
 
 # current support python version
