@@ -1,24 +1,69 @@
-recreate_lock:
-  runs-on: ubuntu-latest
+name: ReboSlime CI
 
-  steps:
-    - uses: actions/checkout@v4
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Choose action"
+        required: true
+        type: choice
+        options:
+          - recreate_lock
+          - build
 
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.12"
+jobs:
+  recreate_lock:
+    if: ${{ github.event.inputs.action == 'recreate_lock' }}
+    runs-on: ubuntu-latest
 
-    - name: Install Poetry
-      run: pip install poetry
+    steps:
+      - uses: actions/checkout@v4
 
-    - name: Recreate lock file
-      run: poetry lock --no-interaction
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-    - name: Commit updated lock file
-      run: |
-        git config user.name "github-actions"
-        git config user.email "github-actions@github.com"
-        git add poetry.lock
-        git commit -m "Recreate poetry.lock" || echo "No changes"
-        git push
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install --no-root
+
+      - name: Recreate lock file
+        run: poetry lock --no-interaction
+
+      - name: Commit updated lock file
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add poetry.lock
+          git commit -m "Recreate poetry.lock" || echo "No changes to commit"
+          git push
+
+  build:
+    if: ${{ github.event.inputs.action == 'build' }}
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install --no-root
+
+      - name: Build executable with PyInstaller
+        run: poetry run pyinstaller -F -i assets/reboslime.ico reboslime.py
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: reboslime-build
+          path: dist/
