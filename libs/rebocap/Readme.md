@@ -2,8 +2,12 @@
 
 # current support python version
 - python3.7
+- python3.7
 - python3.8
+- python3.9
 - python3.10
+- python3.11
+- python3.12
 
 # example
 直接运行 `python reborncap_ws_sdk_example.py`
