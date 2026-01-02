@@ -10,7 +10,7 @@
 - python3.12
 
 # example
-直接运行 `python reborncap_ws_sdk_example.py`
+以下のコマンドを直接実行します。 `python reborncap_ws_sdk_example.py`
 
 # 基本使用示例
 ```python
@@ -22,21 +22,24 @@ def pose_msg_callback(self: rebocap_ws_sdk.RebocapWsSdk, tran: list, pose24: lis
 def exception_close_callback(self: rebocap_ws_sdk.RebocapWsSdk):
     print("exception_close_callback")
 
-# 初始化sdk  这里可以选择坐标空间 以及 坐标输出【全局 or 局部】
+# SDK の初期化
+# ここで座標系や、回転情報の出力方法（グローバル / ローカル）を選択できます
 sdk = rebocap_ws_sdk.RebocapWsSdk(rebocap_ws_sdk.CoordinateType.UECoordinate, use_global_rotation=True)
-# 设置姿态回调
+# 姿勢データ受信時のコールバックを設定
 sdk.set_pose_msg_callback(pose_msg_callback)
-# 设置异常断开回调
+# 異常切断時のコールバックを設定
 sdk.set_exception_close_callback(exception_close_callback)
-# 开始连接
+# 接続開始（ポート番号を指定）
 open_ret = sdk.open(7690)
 ```
-# 数据结构
+# データ構造
 - trans:
-  - List 3个浮点数据
-  - 目前是屁股[pelvis]的位置
+  - 浮動小数点数3つからなるリスト
+  - 現在は 骨盤（Pelvis）の位置情報 を表します
 - pose24:
-24个关节的四元数，参考example中的用法，其中 Pelvis 是根节点，节点位置图，可以参考[SMPL关节点位](https://blog.csdn.net/weixin_43822395/article/details/124378186)
+  - 24個の関節それぞれの クォータニオン（回転）
+  - Pelvis がルートノードです
+  - 関節の構成や位置関係は、以下の SMPL 関節構造を参考にしてください https://blog.csdn.net/weixin_43822395/article/details/124378186
 ```python
 # 关节名称
 REBOCAP_JOINT_NAMES = [
