@@ -10,7 +10,7 @@
 
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable-next-line MD036 -->
-<div>在 SlimeVR Server 中使用 ReboCap</div>
+<div>SlimeVR Server で ReboCap を使用する</div>
 <div style="margin-bottom: 12px">Use ReboCap in SlimeVR Server</div>
 
 <!-- prettier-ignore-end -->
@@ -28,16 +28,16 @@
 
 ## 使用説明
 
-- 下载 `Releases` 中的可执行文件，最新 `v0.4.2` 已适配 Rebocap v40 及以后的版本，如果想要使用之前与 VMT 相配合的程序，请下载 `v0.31` 版本。
-- 打开 SlimeVR 服务端。
-- 打开 ReboCap 客户端，点击 **动作校准1**。
-- 运行 `run.bat` 或者 `reboslime.exe`。
-- 现在应该能在 SlimeVR 中看到追踪器了！之后按照 SlimeVR 的用法来就可以了。
+- `Releases` から実行ファイルをダウンロードしてください。最新の `v0.4.2` は Rebocap v40 以降のバージョンに対応しています。もし以前の VMT と連携するバージョンを使いたい場合は、 `v0.31` をダウンロードしてください。
+- SlimeVR サーバーを起動します。
+- ReboCap クライアントを開き、動作 **动作校准1**。
+- `run.bat` または `reboslime.exe` を実行します。
+- これで SlimeVR にトラッカーが表示されるはずです。その後は通常の SlimeVR の使い方に従ってください。
 
 ## 開発関連
 
-- 本项目使用 `Poetry` 进行依赖管理，请安装 3.10.x 版本的 Python 后运行 `pip install poetry`。
-- 使用 `poetry install` 安装依赖，然后运行 `poetry run python reboslime.py` 即可运行程序。
+- 本プロジェクトは `Poetry` を使用して依存関係を管理しています。Python 3.10.x をインストールした後、  `pip install poetry` を実行してください。
+- `poetry install` で依存関係をインストールし、 `poetry run python reboslime.py` を実行すればプログラムを起動できます。
 
 ## パッケージング関連
 
