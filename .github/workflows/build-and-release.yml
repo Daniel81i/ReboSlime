@@ -1,130 +1,69 @@
-name: Build and Release
+name: ReboSlime CI
 
 on:
-  push:
-    tags:
-      - "v*"
-
-permissions:
-  contents: write
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Choose action"
+        required: true
+        type: choice
+        options:
+          - recreate_lock
+          - build
 
 jobs:
-  build:
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # Rebocap SDK (.pyd) が 3.10 系前提なので固定
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10.10"
-
-      - name: Cleanup build environment
-        shell: pwsh
-        run: |
-          pip cache purge
-          Remove-Item build -Recurse -Force -ErrorAction SilentlyContinue
-          Remove-Item dist -Recurse -Force -ErrorAction SilentlyContinue
-          Remove-Item *.spec -Force -ErrorAction SilentlyContinue
-          Remove-Item version.txt -Force -ErrorAction SilentlyContinue
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install rich pyinstaller
-
-      - name: Generate version file
-        shell: pwsh
-        run: |
-          $APP_NAME = "ReboSlime"
-          $PY_VER = python -c "import platform; print(platform.python_version())"
-          $TAG = "${{ github.ref_name }}"
-          $BUILD_TIME = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-
-          Set-Content version.txt "VSVersionInfo("
-          Add-Content version.txt "  ffi=FixedFileInfo("
-          Add-Content version.txt "    filevers=(1, 0, 0, 0),"
-          Add-Content version.txt "    prodvers=(1, 0, 0, 0),"
-          Add-Content version.txt "    mask=0x3f,"
-          Add-Content version.txt "    flags=0x0,"
-          Add-Content version.txt "    OS=0x40004,"
-          Add-Content version.txt "    fileType=0x1,"
-          Add-Content version.txt "    subtype=0x0,"
-          Add-Content version.txt "    date=(0, 0)"
-          Add-Content version.txt "  ),"
-          Add-Content version.txt "  kids=["
-          Add-Content version.txt "    StringFileInfo(["
-          Add-Content version.txt "      StringTable("
-          Add-Content version.txt "        '040904B0',"
-          Add-Content version.txt "        ["
-          Add-Content version.txt "          StringStruct('CompanyName', '$APP_NAME'),"
-          Add-Content version.txt "          StringStruct('FileDescription', '$APP_NAME'),"
-          Add-Content version.txt "          StringStruct('FileVersion', '$TAG'),"
-          Add-Content version.txt "          StringStruct('ProductVersion', '$TAG'),"
-          Add-Content version.txt "          StringStruct('Comments', 'Python $PY_VER / Build $BUILD_TIME'),"
-          Add-Content version.txt "        ]"
-          Add-Content version.txt "      )"
-          Add-Content version.txt "    ]),"
-          Add-Content version.txt "    VarFileInfo([VarStruct('Translation', [1033, 1200])])"
-          Add-Content version.txt "  ]"
-          Add-Content version.txt ")"
-
-      - name: Build EXE (PyInstaller)
-        shell: pwsh
-        run: |
-          $APP_NAME = "ReboSlime"
-
-          # Rebocapの条件分岐import対策 + .pyd 同梱
-          pyinstaller --onefile `
-            --name $APP_NAME `
-            --version-file version.txt `
-            --icon assets\reboslime.ico `
-            --hidden-import libs.rebocap.py310.rebocap_ws_sdk_ext `
-            --add-binary "libs\rebocap\py310\rebocap_ws_sdk_ext.pyd;libs\rebocap\py310" `
-            reboslime.py
-
-          # config.json は外出し（コードが open('config.json') のため）
-          Copy-Item config.json dist\config.json -Force
-          if (Test-Path README.md) { Copy-Item README.md dist\README.md -Force }
-          if (Test-Path LICENSE) { Copy-Item LICENSE dist\LICENSE -Force }
-
-      - name: Create ZIP
-        shell: pwsh
-        run: |
-          $APP_NAME = "ReboSlime"
-          $ZIP_NAME = "$APP_NAME.zip"
-          if (Test-Path dist\$ZIP_NAME) { Remove-Item dist\$ZIP_NAME -Force }
-
-          # README/LICENSE が無い場合でも落ちないように
-          $items = @("dist\$APP_NAME.exe", "dist\config.json")
-          if (Test-Path dist\README.md) { $items += "dist\README.md" }
-          if (Test-Path dist\LICENSE) { $items += "dist\LICENSE" }
-
-          Compress-Archive -Path $items -DestinationPath "dist\$ZIP_NAME"
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ReboSlime
-          path: dist/ReboSlime.zip
-
-  release:
-    needs: build
+  recreate_lock:
+    if: ${{ github.event.inputs.action == 'recreate_lock' }}
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ReboSlime
-          path: release_files
+      - uses: actions/checkout@v4
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
         with:
-          files: release_files/ReboSlime.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          python-version: "3.12"
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install --no-root
+
+      - name: Recreate lock file
+        run: poetry lock --no-interaction
+
+      - name: Commit updated lock file
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add poetry.lock
+          git commit -m "Recreate poetry.lock" || echo "No changes to commit"
+          git push
+
+  build:
+    if: ${{ github.event.inputs.action == 'build' }}
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install --no-root
+
+      - name: Build executable with PyInstaller
+        run: poetry run pyinstaller -F -i assets/reboslime.ico reboslime.py
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: reboslime-build
+          path: dist/
