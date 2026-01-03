@@ -18,12 +18,12 @@ def raw_sdk_example():
                   f'root position:{trans} left_on_floor:{is_left_on_floor}  right_on_floor:{is_right_on_floor}')
             for i in range(24):
                 print(f'bone:{rebocap_ws_sdk.REBOCAP_JOINT_NAMES[i]} quaternion w,x,y,z is:{pose24[i]}')
-            print('\n\n\n\n')
+            print('\n\n\n\n', flush=True)
         counter += 1
 
     # 姿态数据回调
     def pose_msg_callback(self: rebocap_ws_sdk.RebocapWsSdk, tran: list, pose24: list, static_index: int, ts: float):
-        # print_debug_msg(self, tran, pose24, static_index, ts)
+        print_debug_msg(self, tran, pose24, static_index, ts)
         pass
 
 
@@ -56,10 +56,10 @@ def raw_sdk_example():
         exit(1)
     # 维持启动10秒
 
-    for i in range(10):
+    for i in range(100):
         tran, pose24, static_index, tp = sdk.get_last_msg()
-        print(f'trans is:{pose24}')
-        time.sleep(0.1)
+        print(f'trans is:{tran}', flush=True)
+        time.sleep(1.0)
     time.sleep(10)
     # 断开连接
     sdk.close()
