@@ -8,6 +8,10 @@
 
 # ReboSlime
 
+**🌐 Languages:**  
+[🇯🇵 日本語](README.md) | [🇺🇸 English](README.en.md) | [🇨🇳 简体中文](README.zh.md)
+
+
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable-next-line MD036 -->
 <div>SlimeVR Server で ReboCap を使用する</div>
