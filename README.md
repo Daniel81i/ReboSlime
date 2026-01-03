@@ -24,7 +24,12 @@
   <img src="https://img.shields.io/badge/python-3.10.x-blue?logo=python&logoColor=edb641" alt="python">
 </p>
 
-### このリポジトリは https://github.com/colasama/ReboSlime からforkされたソースを更新したものです
+## このリポジトリは https://github.com/colasama/ReboSlime からforkされたソースを更新したものです
+
+## fork元からの変更点
+- Rebocap SDKのアップデート。
+- Python 3.12 でのビルド。
+- トラキングポイントの15点をデフォルトとする、起動時のトラッキングポイント入力のタイムアウト時間を設定、これらはconfig.jsonにて設定変更可能です。
 
 ## 使用説明
 
