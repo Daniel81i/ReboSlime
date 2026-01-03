@@ -14,7 +14,7 @@
 
 `python reborncap_ws_sdk_example.py`
 
-# 基本使用示例
+# 使い方
 ```python
 import rebocap_ws_sdk
 
