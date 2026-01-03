@@ -18,8 +18,8 @@
 </div>
 
 <p align="center">
-  <a href="https://raw.githubusercontent.com/colasama/reboslime/master/LICENSE">
-    <img src="https://img.shields.io/github/license/colasama/reboslime" alt="license">
+  <a href="./LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="license">
   </a>
   <img src="https://img.shields.io/badge/python-3.12.x-blue?logo=python&logoColor=edb641" alt="python">
 </p>
