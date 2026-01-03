@@ -21,7 +21,7 @@
   <a href="https://raw.githubusercontent.com/colasama/reboslime/master/LICENSE">
     <img src="https://img.shields.io/github/license/colasama/reboslime" alt="license">
   </a>
-  <img src="https://img.shields.io/badge/python-3.10.x-blue?logo=python&logoColor=edb641" alt="python">
+  <img src="https://img.shields.io/badge/python-3.12.x-blue?logo=python&logoColor=edb641" alt="python">
 </p>
 
 ## このリポジトリは https://github.com/colasama/ReboSlime からforkされたソースを更新したものです
