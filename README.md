@@ -73,6 +73,9 @@
 
 - https://github.com/lmore377/moslime - SlimeVR のネットワーク通信部分は、このプロジェクト構造を大きく参考にしています。
 
+
+
+
 # English
 
 ## This repository is an updated fork of https://github.com/colasama/ReboSlime
@@ -106,6 +109,9 @@
 
   ```bash
   pyinstaller -F -i .\assets\reboslime.ico reboslime.py
+
+
+
 
 # 簡体字中国語
 
