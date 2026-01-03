@@ -59,3 +59,25 @@
 
   ```bash
   pyinstaller -F -i .\assets\reboslime.ico reboslime.py
+  ```
+
+- After packaging is complete, place `config.json` in the same directory as the executable.
+
+## Notes
+
+- Due to the specifications of the ReboCap client, at least the same setup as the original VR usage is required: 8 mounting points (chest, waist, and legs) are mandatory. The application will not function correctly unless at least these 8 points are used. Currently, you can choose from 6 / 8 / 10 / 12 / 15 points.
+  - 6 points: chest + waist + thighs + lower legs
+  - 8 points: chest + waist + thighs + lower legs + feet
+  - 10 points: chest + waist + thighs + lower legs + feet + upper arms
+  - 12 points: chest + waist + thighs + lower legs + feet + upper arms + forearms
+  - 15 points: full body
+- **Note**: Regardless of the configuration you choose, a “Node 0” will appear. It is recommended to leave it unassigned or assign it to the waist (hips).
+
+## ToDo
+
+- [x] Implemented tracking point count selection.
+- [ ] Fix the issue where the head node cannot be used in 15-point mode.
+
+## Acknowledgements
+
+- https://github.com/lmore377/moslime — The SlimeVR network communication part of this project is heavily based on the structure of this project.
