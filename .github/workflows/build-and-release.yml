@@ -61,7 +61,10 @@ jobs:
 
       - name: Build executable with PyInstaller
         run: poetry run pyinstaller -F -i assets/reboslime.ico reboslime.py
-
+      
+      - name: Copy config.json to dist
+        run: copy config.json dist\config.json
+      
       - name: Create ZIP
         run: |
           powershell Compress-Archive -Path dist/* -DestinationPath reboslime.zip
