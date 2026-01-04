@@ -33,8 +33,9 @@
 ## Changes from the original fork
 - Updated Rebocap SDK.
 - Built with Python 3.12.
-- Default tracking point count set to 15.  
-  The startup tracking point timeout and other settings can be configured in `config.json`.
+- Changed the default number of tracking points to 15.
+- added settings for the default number of tracking points at startup, and the timeout duration for tracking‑point input. These values can be modified in `config.json`.
+- Added the necessary configuration for building with Poetry on GitHub, assuming GitHub-based builds and releases.
 
 ## Usage
 
