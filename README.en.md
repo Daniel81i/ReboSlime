@@ -49,7 +49,7 @@
 ## Development
 
 - This project uses `Poetry` for dependency management.  
-  After installing Python 3.10.x, run `pip install poetry`.
+  After installing Python 3.12.x, run `pip install poetry`.
 - Install dependencies with `poetry install`, then start the program with:  
   `poetry run python reboslime.py`.
 
