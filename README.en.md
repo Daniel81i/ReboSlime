@@ -34,7 +34,7 @@
 - Built with Python 3.12.
 - Changed the default number of tracking points to 15.
 - added settings for the default number of tracking points at startup, and the timeout duration for tracking‑point input. These values can be modified in `config.json`.
-- Added the necessary configuration for building with Poetry on GitHub, assuming GitHub-based builds and releases.
+- Added the necessary configuration for building with `Poetry` on GitHub, assuming GitHub-based builds and releases.
 
 ## Usage
 
