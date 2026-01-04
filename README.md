@@ -14,8 +14,8 @@
 
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable-next-line MD036 -->
-<div>SlimeVR Server で ReboCap を使用する</div>
 <div style="margin-bottom: 12px">Use ReboCap in SlimeVR Server</div>
+<div>SlimeVR Server で ReboCap を使用する</div>
 
 <!-- prettier-ignore-end -->
 
