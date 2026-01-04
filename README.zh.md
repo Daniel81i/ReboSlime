@@ -45,7 +45,7 @@
 
 ## 开发相关
 
-- 本项目使用 `Poetry` 管理依赖。安装 Python 3.10.x 后，请执行 `pip install poetry`。
+- 本项目使用 `Poetry` 管理依赖。安装 Python 3.12.x 后，请执行 `pip install poetry`。
 - 使用 `poetry install` 安装依赖，然后通过 `poetry run python reboslime.py` 启动程序。
 
 ## 打包相关
