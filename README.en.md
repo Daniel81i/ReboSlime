@@ -65,7 +65,7 @@
 
 ## Notes
 
-- Due to the specifications of the ReboCap client, at least the same setup as the original VR usage is required: 8 mounting points (chest, waist, and legs) are mandatory. The application will not function correctly unless at least these 8 points are used. Currently, you can choose from 6 / 8 / 10 / 12 / 15 points.
+- Due to the specifications of the Rebocap client, at least the same setup as the original VR usage is required: 8 mounting points (chest, waist, and legs) are mandatory. The application will not function correctly unless at least these 8 points are used. Currently, you can choose from 6 / 8 / 10 / 12 / 15 points.
   - 6 points: chest + waist + thighs + lower legs
   - 8 points: chest + waist + thighs + lower legs + feet
   - 10 points: chest + waist + thighs + lower legs + feet + upper arms
